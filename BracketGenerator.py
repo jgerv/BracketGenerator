@@ -36,6 +36,7 @@ def findNumRounds(num):
 def main():
     numEntrants = 0 #number of entrants in the tournament
     nameEntrants = [] #list of the names of the entrants
+    currentRoundEntrants = [] #the names of the entrants in the current round
     placeholder = "" #placeholder to put names into list
     numSets = 0 #number of sets to be played in current round
     currRound = 1 #current round the bracket is in(starts at 1 not 0)
@@ -55,9 +56,25 @@ def main():
         placeholder = input("Seed " + str(i + 1) + ": ")
         nameEntrants.append(placeholder)
 
-    for i in range(len(nameEntrants)):
-        print(nameEntrants[i])
+    #gets the entrants into a list of the current round the tournament is in 
+    for i in range(numByes, len(nameEntrants)):
+        currentRoundEntrants.append(nameEntrants[i])
 
+    for i in range(len(currentRoundEntrants)):
+        print(currentRoundEntrants[i])
+    
+
+    #need to figure out a way to iterate throughout the currentRoundEntrants no matter the size
+    #iterates throughout the whole tournament, i is the currentround on
+    for i in range(numRounds):
+        print("Round ", i + 1, ":")
+        for j in range(numSets):
+            print(currentRoundEntrants[0], "plays ", currentRoundEntrants[-1])
+            currentRoundEntrants.pop(0)
+            currentRoundEntrants.pop(-1)
+          
+        
+        
         
         
 
