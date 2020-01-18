@@ -31,9 +31,22 @@ def findNumRounds(num):
         return int(math.log(num) / math.log(2))
     else:
         return int(math.log(num) / (math.log(2)) + 1)
+
+#gets the number of sets in a current round
+def getNumSets(currentRoundEntrants):
+    return currentRoundEntrants / 2
+
+
+class Round:
+    def __init__(self, roundEntrants, roundNumSets):
+        self.roundEntrants = []
+        self.roundNumSets = 0
+
+    def addEntrants(self, length, 
             
 
 def main():
+    rounds = []     #list of Round 
     numEntrants = 0 #number of entrants in the tournament
     nameEntrants = [] #list of the names of the entrants
     currentRoundEntrants = [] #the names of the entrants in the current round
@@ -48,9 +61,9 @@ def main():
     numByes = findNumByes(numEntrants)
     numSets = (numEntrants - numByes) / 2
     numRounds = findNumRounds(numEntrants)
-    print(numRounds)
-    print(numByes)
-    print(str(numSets) + " sets in the " + str(currRound) + " round to be played")
+
+    rounds.append(Round('nice', 3))
+    print(rounds[0].roundNumSets)
 
     for i in range(numEntrants):
         placeholder = input("Seed " + str(i + 1) + ": ")
@@ -58,20 +71,25 @@ def main():
 
     #gets the entrants into a list of the current round the tournament is in 
     for i in range(numByes, len(nameEntrants)):
-        currentRoundEntrants.append(nameEntrants[i])
+        rounds.insert(0, Round(nameEntrants[i], getNumSets(len(nameEntrants)- numByes)))
 
-    for i in range(len(currentRoundEntrants)):
-        print(currentRoundEntrants[i])
-    
+    for i in range(numByes):
+        rounds.insert(1, Round(nameEntrants[i], getNumSets(len(nameEntrants) - numByes)))
+
+    print(rounds[0].roundNumSets)
+   
+
+    for i in range(len(rounds[0].roundEntrants)):
+        print(rounds[0].roundEntrants[i])
 
     #need to figure out a way to iterate throughout the currentRoundEntrants no matter the size
     #iterates throughout the whole tournament, i is the currentround on
-    for i in range(numRounds):
-        print("Round ", i + 1, ":")
-        for j in range(numSets):
-            print(currentRoundEntrants[0], "plays ", currentRoundEntrants[-1])
-            currentRoundEntrants.pop(0)
-            currentRoundEntrants.pop(-1)
+#    for i in range(numRounds):
+ #       print("Round ", i + 1, ":")
+  #      for j in range(numSets):
+   #         print(currentRoundEntrants[0], "plays ", currentRoundEntrants[-1])
+    #        currentRoundEntrants.pop(0)
+     #       currentRoundEntrants.pop(-1)
           
         
         
