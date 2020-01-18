@@ -38,11 +38,12 @@ def getNumSets(currentRoundEntrants):
 
 
 class Round:
-    def __init__(self, roundEntrants, roundNumSets):
+    def __init__(self, roundEntrants, roundNumSets, winners, losers):
         self.roundEntrants = []
         self.roundNumSets = 0
+        self.winners = []
+        self.losers = []
 
-    def addEntrants(self, length, 
             
 
 def main():
