@@ -38,11 +38,22 @@ def getNumSets(currentRoundEntrants):
 
 
 class Round:
-    def __init__(self, roundEntrants, roundNumSets, winners, losers):
-        self.roundEntrants = []
-        self.roundNumSets = 0
-        self.winners = []
-        self.losers = []
+    roundEntrants = []
+    roundNumSets = 0
+    winners = []
+    losers = []
+
+    def setRoundEntrants(length, entrantList):
+        for i in range(length):
+            roundEntrants.append(entrantList[i])
+        return roundEntrants
+        
+        
+
+class Entrant:
+    def __init__(self, name, seed):
+        self.name = name
+        self.seed = seed
 
             
 
@@ -63,25 +74,29 @@ def main():
     numSets = (numEntrants - numByes) / 2
     numRounds = findNumRounds(numEntrants)
 
-    rounds.append(Round('nice', 3))
-    print(rounds[0].roundNumSets)
+    #rounds.append(Round('nice', 3,))
+    #print(rounds[0].roundNumSets)
 
     for i in range(numEntrants):
         placeholder = input("Seed " + str(i + 1) + ": ")
-        nameEntrants.append(placeholder)
+        nameEntrants.append((Entrant(placeholder, i + 1)))
+
+    rounds.insert(0, Round())
+    print(rounds[0].roundEntrants)
+    rounds[0].setRoundEntrants(numEntrants, nameEntrants) 
 
     #gets the entrants into a list of the current round the tournament is in 
-    for i in range(numByes, len(nameEntrants)):
-        rounds.insert(0, Round(nameEntrants[i], getNumSets(len(nameEntrants)- numByes)))
+    #for i in range(numByes, len(nameEntrants)):
+     #   rounds.insert(0, Round(nameEntrants[i], getNumSets(len(nameEntrants)- numByes)))
 
-    for i in range(numByes):
-        rounds.insert(1, Round(nameEntrants[i], getNumSets(len(nameEntrants) - numByes)))
+    #for i in range(numByes):
+     #   rounds.insert(1, Round(nameEntrants[i], getNumSets(len(nameEntrants) - numByes)))
 
-    print(rounds[0].roundNumSets)
+    #print(rounds[0].roundNumSets)
    
 
-    for i in range(len(rounds[0].roundEntrants)):
-        print(rounds[0].roundEntrants[i])
+    #for i in range(len(rounds[0].roundEntrants)):
+     #   print(rounds[0].roundEntrants[i])
 
     #need to figure out a way to iterate throughout the currentRoundEntrants no matter the size
     #iterates throughout the whole tournament, i is the currentround on
