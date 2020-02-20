@@ -37,23 +37,34 @@ def getNumSets(currentRoundEntrants):
     return currentRoundEntrants / 2
 
 
-class Round:
-    roundEntrants = []
-    roundNumSets = 0
-    winners = []
-    losers = []
 
-    def setRoundEntrants(length, entrantList):
-        for i in range(length):
-            roundEntrants.append(entrantList[i])
-        return roundEntrants
-        
-        
-
-class Entrant:
+class Entrant(object):
     def __init__(self, name, seed):
         self.name = name
         self.seed = seed
+
+
+class Round(Entrant):
+
+    def __init__(self, name, seed, roundEntrants, roundNumSets, winners, losers):
+        super(Round, self).__init__(name, seed)
+        self.roundEntrants = roundEntrants
+        self.roundNumSets = roundNumSets
+        self.winners = winners
+        self.losers = losers
+  
+
+    def setRoundEntrants(self, entrantList):
+        #for i in range(length):
+            self.roundEntrants.extend(entrantList)
+        #return self.roundEntrants
+
+    def displayRoundEntrants(self):
+        for entrant in self.roundEntrants:
+            print(entrant.name)
+        
+        
+
 
             
 
@@ -74,16 +85,19 @@ def main():
     numSets = (numEntrants - numByes) / 2
     numRounds = findNumRounds(numEntrants)
 
-    #rounds.append(Round('nice', 3,))
-    #print(rounds[0].roundNumSets)
-
+    #inputs all the entrants in the bracket and puts it into a list
     for i in range(numEntrants):
         placeholder = input("Seed " + str(i + 1) + ": ")
         nameEntrants.append((Entrant(placeholder, i + 1)))
 
-    rounds.insert(0, Round())
-    print(rounds[0].roundEntrants)
-    rounds[0].setRoundEntrants(numEntrants, nameEntrants) 
+    rounds.insert(0, Round("",0,[],0,[],[]))
+    rounds[0].setRoundEntrants(nameEntrants)
+    #for i in rounds[0].roundEntrants:
+     #   print(i)
+    #print("after extend", rounds[0].name.roundEntrants)
+    #print(rounds[0].roundEntrants)
+    rounds[0].displayRoundEntrants()
+    
 
     #gets the entrants into a list of the current round the tournament is in 
     #for i in range(numByes, len(nameEntrants)):
