@@ -38,29 +38,52 @@ def getNumSets(currentRoundEntrants):
 
 
 
-class Entrant(object):
+#class Entrant(object):
+class Entrant:
     def __init__(self, name, seed):
         self.name = name
         self.seed = seed
 
 
-class Round(Entrant):
-
-    def __init__(self, name, seed, roundEntrants, roundNumSets, winners, losers):
-        super(Round, self).__init__(name, seed)
-        self.roundEntrants = roundEntrants
-        self.roundNumSets = roundNumSets
-        self.winners = winners
-        self.losers = losers
+#class Round(Entrant):
+class Round:    
+    roundEntrants = []
+    winners = []
+    losers = []
+    #def __init__(self, name, seed, roundEntrants, winners, losers):
+    #super(Round, self).__init__(name, seed)
+    #    self.roundEntrants = roundEntrants
+     #   self.winners = winners
+    #    self.losers = losers
   
+    #sets the entrants in the round
+    def setRoundEntrants(self, start, end, entrantList):
+        for i in range(start, end):
+            self.roundEntrants.append(entrantList[i])
+        return self.roundEntrants
 
-    def setRoundEntrants(self, entrantList):
-        #for i in range(length):
-            self.roundEntrants.extend(entrantList)
-        #return self.roundEntrants
-
+    #displays the names of the entrants in the current round
     def displayRoundEntrants(self):
         for entrant in self.roundEntrants:
+            print(entrant.name)
+
+    #adds a winner to winners
+    def addWinner(self, entrant):
+        self.winners.append(entrant)
+        return self.winners
+
+    #removes an entrant from roundEntrants
+    def removeEntrant(self, entrant):
+        self.roundEntrants.remove(entrant)
+
+    #prints out the winners of the current round
+    def displayWinners(self):
+        for entrant in self.winners:
+            print(entrant.name)
+
+    #prints out the losers of the current round
+    def displayLosers(self):
+        for entrant in self.losers:
             print(entrant.name)
         
         
@@ -90,19 +113,17 @@ def main():
         placeholder = input("Seed " + str(i + 1) + ": ")
         nameEntrants.append((Entrant(placeholder, i + 1)))
 
-    rounds.insert(0, Round("",0,[],0,[],[]))
-    rounds[0].setRoundEntrants(nameEntrants)
-    #for i in rounds[0].roundEntrants:
-     #   print(i)
-    #print("after extend", rounds[0].name.roundEntrants)
-    #print(rounds[0].roundEntrants)
-    rounds[0].displayRoundEntrants()
+   # rounds.insert(0, Round())
+   # rounds[0].setRoundEntrants(0, numEntrants, nameEntrants)
+    #rounds[0].displayRoundEntrants()
+    #print(rounds[0].roundEntrants[0].name)
     
 
     #gets the entrants into a list of the current round the tournament is in 
     #for i in range(numByes, len(nameEntrants)):
-     #   rounds.insert(0, Round(nameEntrants[i], getNumSets(len(nameEntrants)- numByes)))
+     #   rounds.insert(0, Round(
 
+    #rounds[0].displayRoundEntrants()
     #for i in range(numByes):
      #   rounds.insert(1, Round(nameEntrants[i], getNumSets(len(nameEntrants) - numByes)))
 
@@ -111,15 +132,31 @@ def main():
 
     #for i in range(len(rounds[0].roundEntrants)):
      #   print(rounds[0].roundEntrants[i])
+    #byes only happen in the first round
+    rounds.insert(i, Round())
+    rounds[0].setRoundEntrants(0, numEntrants, nameEntrants)
+
+    #print(numByes)
+    for i in range(numByes):
+        rounds[0].addWinner(rounds[0].roundEntrants[0])
+        rounds[0].removeEntrant(rounds[0].roundEntrants[0])
+        
+        #print(rounds[0].winners[i].name)
+
+    for i in range(numByes):
+        rounds[0].removeEntrant(rounds[0].roundEntrants[i])
+    rounds[0].displayRoundEntrants()
 
     #need to figure out a way to iterate throughout the currentRoundEntrants no matter the size
     #iterates throughout the whole tournament, i is the currentround on
-#    for i in range(numRounds):
- #       print("Round ", i + 1, ":")
-  #      for j in range(numSets):
-   #         print(currentRoundEntrants[0], "plays ", currentRoundEntrants[-1])
-    #        currentRoundEntrants.pop(0)
-     #       currentRoundEntrants.pop(-1)
+    for i in range(1,numRounds):
+        rounds.insert(i, Round())
+        rounds[i].setRoundEntrants(numByes,numEntrants, nameEntrants)
+       # print("Round ", i + 1, ":")
+       # for j in range(len(rounds[i].roundEntrants)):
+            #print(rounds[i].roundEntrants, "plays ", currentRoundEntrants[-1])
+        #    currentRoundEntrants.pop(0)
+        #    currentRoundEntrants.pop(-1)
           
         
         
