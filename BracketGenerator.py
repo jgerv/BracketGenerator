@@ -11,19 +11,18 @@ def isPowerOfTwo(n):
     return (math.ceil(Log2(n)) == math.floor(Log2(n)));
 
 #function to find the number of byes in a tournament
+#finds the closest power of two > num and subtracts num from it to get the numByes
 def findNumByes(num):
     countUp = 0
     countDown = 0
     if(isPowerOfTwo(num)):
         return 0
     else:
-        while(~isPowerOfTwo(num + countUp) & ~isPowerOfTwo(num - countDown)):
+        while(~isPowerOfTwo(num + countUp)):
             countUp = countUp + 1
             countDown = countDown + 1
             if(isPowerOfTwo(num + countUp)):
                 return countUp
-            elif(isPowerOfTwo(num - countDown)):
-                return countDown
 
 #function to find the number of rounds in a tournament
 def findNumRounds(num):
@@ -85,6 +84,12 @@ class Round:
     def displayLosers(self):
         for entrant in self.losers:
             print(entrant.name)
+
+    def getWinners():
+        return winners
+
+    def getRoundEntrants():
+        return roundEntrants
         
         
 
@@ -105,6 +110,7 @@ def main():
     numEntrants = input("How many entrants will there be? ")
 
     numByes = findNumByes(numEntrants)
+    print(numByes)
     numSets = (numEntrants - numByes) / 2
     numRounds = findNumRounds(numEntrants)
 
@@ -138,15 +144,17 @@ def main():
 
     #print(numByes)
     for i in range(numByes):
-        rounds[0].addWinner(rounds[0].roundEntrants[0])
-        rounds[0].removeEntrant(rounds[0].roundEntrants[0])
+        rounds[0].addWinner(rounds[0].roundEntrants[i])
         
-        #print(rounds[0].winners[i].name)
-
-    for i in range(numByes):
-        rounds[0].removeEntrant(rounds[0].roundEntrants[i])
     rounds[0].displayRoundEntrants()
-
+    for i in range(len(rounds[0].winners)):
+        if(rounds[0].winners[i] in rounds[0].roundEntrants):
+            rounds[0].removeEntrant(rounds[0].winners[i])
+    rounds[0].displayRoundEntrants()
+            
+    #for i in range(numByes):
+        #rounds[0].removeEntrant(rounds[0].roundEntrants[0])
+    #rounds[0].displayRoundEntrants()
     #need to figure out a way to iterate throughout the currentRoundEntrants no matter the size
     #iterates throughout the whole tournament, i is the currentround on
     for i in range(1,numRounds):
